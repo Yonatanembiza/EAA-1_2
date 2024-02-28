@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Original bean for the field Injection/Hard-coded injection or Manual Injection method-->
+<!--	<bean id="customerService" class="customers.CustomerServiceImpl"/> -->
+<!-- end -->
+
+<!--	For setter Injection-->
+	<!-- Define beans -->
+<!--	<bean id="customerRepository" class="customers.CustomerRepositoryImpl" />-->
+<!--	<bean id="emailSender" class="customers.EmailSenderImpl" />-->
+
+	<!-- Configure CustomerService bean with setter injection -->
+	<bean id="customerService" class="customers.CustomerServiceImpl">
+		<property name="customerRepository" ref="customerRepository" />
+		<property name="emailSender" ref="emailSender" />
+	</bean>
+<!-- end -->
+<!--	For constructor Injection-->
+	<!-- Define beans -->
+	<bean id="logger" class="customers.LoggerImpl" />
+
+	<!-- Configure CustomerRepositoryImpl bean with constructor injection -->
+	<bean id="customerRepository" class="customers.CustomerRepositoryImpl">
+		<constructor-arg ref="logger" />
+	</bean>
+	<bean id="emailSender" class="customers.EmailSenderImpl">
+		<constructor-arg ref="logger"/>
+	</bean>
+<!-- end -->
+</beans>
